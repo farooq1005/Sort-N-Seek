@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <MASM Include="src\module1.asm" />
     <MASM Include="src\test.asm" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

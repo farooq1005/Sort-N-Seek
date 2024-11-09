@@ -1,13 +1,17 @@
-INCLUDE Irvine32.inc
+.386
+.model flat, stdcall
+.stack 4096
+ExitProcess PROTO, dwExitCode:DWORD
+
+EXTERN ModuleFunction:PROC
 
 .DATA
 
 .CODE
   MAIN PROC
-    MOV EAX, 3h
-    CALL DumpRegs
+    CALL ModuleFunction
 
-    EXIT
+    INVOKE ExitProcess, 0
   MAIN ENDP
 
 END MAIN
