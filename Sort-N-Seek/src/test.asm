@@ -1,0 +1,13 @@
+INCLUDE Irvine32.inc
+
+.DATA
+
+.CODE
+  MAIN PROC
+    MOV EAX, 3h
+    CALL DumpRegs
+
+    EXIT
+  MAIN ENDP
+
+END MAIN
