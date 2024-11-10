@@ -23,5 +23,8 @@
     <None Include="src\BubbleSort.inc">
       <Filter>Header Files</Filter>
     </None>
+    <None Include="src\SelectionSort.inc">
+      <Filter>Header Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

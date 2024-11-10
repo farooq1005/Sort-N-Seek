@@ -1,5 +1,6 @@
 INCLUDE Irvine32.inc
 INCLUDE BubbleSort.inc
+INCLUDE SelectionSort.inc
 
 .DATA
   myArr DD 3, 2, 5, 6, 1, 7, 8, 9, 0
@@ -149,19 +150,13 @@ MAIN PROC
   ADD DWORD PTR [ESP], SIZEOF myArr
   PUSH OFFSET myArr
 
-  CALL BubbleSort
+  CALL SelectionSort
 
   MOV ESI, OFFSET myArr
   MOV ECX, LENGTHOF myArr
+  MOV EBX, TYPE myArr
 
-LOOP1003:
-  MOV EAX, [ESI]
-  CALL WriteDec
-  CALL Crlf
-
-  ADD ESI, 4
-  LOOP LOOP1003
-END_LOOP3:
+  call DumpMem
 
   EXIT
 MAIN ENDP
