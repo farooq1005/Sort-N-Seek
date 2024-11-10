@@ -13,6 +13,9 @@
   <ItemGroup>
     <MASM Include="src\test.asm" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="src\BubbleSort.inc" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>

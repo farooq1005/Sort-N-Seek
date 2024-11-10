@@ -18,5 +18,8 @@
     <MASM Include="src\test.asm">
       <Filter>Source Files</Filter>
     </MASM>
+    <MASM Include="src\BubbleSort.asm">
+      <Filter>Source Files</Filter>
+    </MASM>
   </ItemGroup>
 </Project>
