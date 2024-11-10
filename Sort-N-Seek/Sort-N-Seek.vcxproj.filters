@@ -15,11 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <MASM Include="src\test.asm">
+    <MASM Include="src\MAIN.asm">
       <Filter>Source Files</Filter>
     </MASM>
-    <MASM Include="src\BubbleSort.asm">
-      <Filter>Source Files</Filter>
-    </MASM>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\BubbleSort.inc">
+      <Filter>Header Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
