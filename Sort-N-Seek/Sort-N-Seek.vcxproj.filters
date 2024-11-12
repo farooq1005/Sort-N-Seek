@@ -26,5 +26,11 @@
     <None Include="src\SelectionSort.inc">
       <Filter>Header Files</Filter>
     </None>
+    <None Include="MergeSort.inc">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="CombSort.inc">
+      <Filter>Header Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

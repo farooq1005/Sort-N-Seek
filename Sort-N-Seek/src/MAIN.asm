@@ -109,13 +109,14 @@ Prev PROC
 
   MOV ESI, [EBP + 8]
   MOV EAX, 4
-  MUL DWORD PTR [EBP + 12]
+  MOV EDX, DWORD PTR [EBP + 12]
+  MUL EDX
 
   SUB ESI, EAX
   XCHG EAX, ESI
 
   MOV ESP, EBP
-  POP ESP
+  POP EBP
   RET 8
 Prev ENDP
 
@@ -133,7 +134,7 @@ Distance PROC
   DIV ECX
 
   MOV ESP, EBP
-  POP ESP
+  POP EBP
   RET 8
 Distance ENDP
 

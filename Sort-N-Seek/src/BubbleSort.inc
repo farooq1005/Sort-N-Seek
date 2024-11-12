@@ -50,7 +50,7 @@ LOOP1:                                            ; Do-while loop
 LOOP2_PRE:                                        ; pre-forloop initialization
   ; Calling copy_iter
   PUSH DWORD PTR [EBP + 8]
-  MOV EBX, [EBP + 20]                             ; Address of copy_iter function
+  MOV EBX, [EBP + 24]                             ; Address of copy_iter function
   CALL EBX
   MOV DWORD PTR [EBP - 5], EAX                    ; it (Local)
 
