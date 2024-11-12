@@ -2,6 +2,7 @@ INCLUDE Irvine32.inc
 INCLUDE BubbleSort.inc
 INCLUDE SelectionSort.inc
 INCLUDE MergeSort.inc
+INCLUDE QuickSort.inc
 
 .DATA
   myArr DD 3, 2, 5, 6, 1, 7, 8, 9, 0
@@ -67,8 +68,8 @@ Predicate PROC                              ; simulating std::less<T> function (
   PUSH EBP
   MOV EBP, ESP
 
-  MOV EAX, [EBP + 8]                        ; First iterator
-  MOV EDX, [EBP + 12]                       ; Second iterator
+  MOV EAX, [EBP + 8]                        ; First value
+  MOV EDX, [EBP + 12]                       ; Second value
 
   CMP EAX, EDX
 
@@ -152,7 +153,7 @@ MAIN PROC
   ADD DWORD PTR [ESP], SIZEOF myArr
   PUSH OFFSET myArr
 
-  CALL MergeSort
+  CALL QuickSort
 
   MOV ESI, OFFSET myArr
   MOV ECX, LENGTHOF myArr

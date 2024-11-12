@@ -17,6 +17,7 @@
     <None Include="src\BubbleSort.inc" />
     <None Include="src\CombSort.inc" />
     <None Include="src\MergeSort.inc" />
+    <None Include="src\QuickSort.inc" />
     <None Include="src\SelectionSort.inc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
