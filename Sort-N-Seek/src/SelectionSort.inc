@@ -73,10 +73,6 @@ SelectionSort PROC
 		call ebx							
 		mov DWORD PTR [ebp - 8], eax						; set nextIt = i + 1
 
-		PUSH eax
-		mov ebx, [ebp + 16]
-		call ebx
-
 			FOR_INNER:
 				PUSH DWORD PTR [ebp - 8]
 				PUSH DWORD PTR [ebp - 12]		

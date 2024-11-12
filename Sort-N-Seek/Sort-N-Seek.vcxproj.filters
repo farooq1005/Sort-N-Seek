@@ -26,10 +26,10 @@
     <None Include="src\SelectionSort.inc">
       <Filter>Header Files</Filter>
     </None>
-    <None Include="MergeSort.inc">
+    <None Include="src\CombSort.inc">
       <Filter>Header Files</Filter>
     </None>
-    <None Include="CombSort.inc">
+    <None Include="src\MergeSort.inc">
       <Filter>Header Files</Filter>
     </None>
   </ItemGroup>

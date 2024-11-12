@@ -1,6 +1,7 @@
 INCLUDE Irvine32.inc
 INCLUDE BubbleSort.inc
 INCLUDE SelectionSort.inc
+INCLUDE MergeSort.inc
 
 .DATA
   myArr DD 3, 2, 5, 6, 1, 7, 8, 9, 0
@@ -151,7 +152,7 @@ MAIN PROC
   ADD DWORD PTR [ESP], SIZEOF myArr
   PUSH OFFSET myArr
 
-  CALL SelectionSort
+  CALL MergeSort
 
   MOV ESI, OFFSET myArr
   MOV ECX, LENGTHOF myArr
