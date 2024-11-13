@@ -219,16 +219,6 @@ MergeSortDefinition PROC
     PUSHAD
 
     ; Compare first and last iterators
-
-	_check:
-		PUSH DWORD PTR [ebp + 8]
-		mov ebx, DWORD PTR [ebp + 16]
-		call ebx
-
-		PUSH DWORD PTR [ebp + 12]
-		mov ebx, DWORD PTR [ebp + 16]
-		call ebx
-
     PUSH DWORD PTR [ebp + 8]        ; First Iterator
     PUSH DWORD PTR [ebp + 12]       ; Last Iterator
     mov ebx, DWORD PTR [ebp + 24]   ; Compare function

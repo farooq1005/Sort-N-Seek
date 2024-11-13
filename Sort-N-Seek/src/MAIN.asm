@@ -3,6 +3,7 @@ INCLUDE BubbleSort.inc
 INCLUDE SelectionSort.inc
 INCLUDE MergeSort.inc
 INCLUDE QuickSort.inc
+INCLUDE CombSort.inc
 
 .DATA
   myArr DD 3, 2, 5, 6, 1, 7, 8, 9, 0
@@ -153,7 +154,7 @@ MAIN PROC
   ADD DWORD PTR [ESP], SIZEOF myArr
   PUSH OFFSET myArr
 
-  CALL QuickSort
+  CALL CombSort
 
   MOV ESI, OFFSET myArr
   MOV ECX, LENGTHOF myArr
