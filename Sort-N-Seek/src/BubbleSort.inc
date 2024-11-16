@@ -44,79 +44,78 @@ BubbleSort PROC
 
   MOV BYTE PTR [EBP + 1], 0FFh                    ; Sorted flag
 
-LOOP1:                                            ; Do-while loop
-  MOV BYTE PTR [EBP - 1], 0FFh                    ; set Sorted flag to true
+  LOOP1:                                            ; Do-while loop
+    MOV BYTE PTR [EBP - 1], 0FFh                    ; set Sorted flag to true
   
-LOOP2_PRE:                                        ; pre-forloop initialization
-  ; Calling copy_iter
-  PUSH DWORD PTR [EBP + 8]
-  MOV EBX, [EBP + 24]                             ; Address of copy_iter function
-  CALL EBX
-  MOV DWORD PTR [EBP - 5], EAX                    ; it (Local)
+    LOOP2_PRE:                                        ; pre-forloop initialization
+      ; Calling copy_iter
+      PUSH DWORD PTR [EBP + 8]
+      MOV EBX, [EBP + 24]                             ; Address of copy_iter function
+      CALL EBX
+      MOV DWORD PTR [EBP - 5], EAX                    ; it (Local)
 
-LOOP2:                                            ; For loop
+    LOOP2:                                            ; For loop
   
-  ; Checking (next(it) != Last)
-  MOV EAX, 1
-  PUSH EAX
-  PUSH DWORD PTR [EBP - 5]
-  MOV EBX, [EBP + 36]                             ; Address of next function
-  CALL EBX
-  MOV DWORD PTR [EBP - 9], EAX                    ; nx (Local)
+      ; Checking (next(it) != Last)
+      MOV EAX, 1
+      PUSH EAX
+      PUSH DWORD PTR [EBP - 5]
+      MOV EBX, [EBP + 36]                             ; Address of next function
+      CALL EBX
+      MOV DWORD PTR [EBP - 9], EAX                    ; nx (Local)
 
-  PUSH DWORD PTR [EBP + 12]                       ; last iterator
-  PUSH DWORD PTR [EBP - 9]                        ; nx (Local)
-  MOV EBX, [EBP + 24]                             ; compare iterator function
-  CALL EBX
+      PUSH DWORD PTR [EBP + 12]                       ; last iterator
+      PUSH DWORD PTR [EBP - 9]                        ; nx (Local)
+      MOV EBX, [EBP + 24]                             ; compare iterator function
+      CALL EBX
 
-  CMP EAX, 0
-  JZ END_LOOP2
+      CMP EAX, 0
+      JZ END_LOOP2
 
-IF3:
-  ; Calling pred(*nx, *it)
-  PUSH DWORD PTR [EBP - 5]                        ; it (Local)
-  MOV EBX, [EBP + 16]                             ; Deref (Func)
-  CALL EBX
+      IF3:
+        ; Calling pred(*nx, *it)
+        PUSH DWORD PTR [EBP - 5]                        ; it (Local)
+        MOV EBX, [EBP + 16]                             ; Deref (Func)
+        CALL EBX
   
-  PUSH EAX                                        ; *it pushed to args of pred
+        PUSH EAX                                        ; *it pushed to args of pred
   
-  PUSH DWORD PTR [EBP - 9]                        ; nx (Local)
-  MOV EBX, [EBP + 16]                             ; Deref (Func)
-  CALL EBX
+        PUSH DWORD PTR [EBP - 9]                        ; nx (Local)
+        MOV EBX, [EBP + 16]                             ; Deref (Func)
+        CALL EBX
 
-  PUSH EAX                                        ; *nx pushed to args of pred
+        PUSH EAX                                        ; *nx pushed to args of pred
 
-  MOV EAX, [EBP + 32]                             ; pred(*nx, *it)
-  CALL EAX
-  CMP EAX, 0
-  JZ END_IF3                                      ; !pred(*nx, *it)
+        MOV EAX, [EBP + 32]                             ; pred(*nx, *it)
+        CALL EAX
+        CMP EAX, 0
+        JZ END_IF3                                      ; !pred(*nx, *it)
 
-  PUSH DWORD PTR [EBP - 5]                        ; it (Local)
-  PUSH DWORD PTR [EBP - 9]                        ; nx (Local)
-  MOV EBX, [EBP + 28]                             
-  CALL EBX                                        ; iter_swap(nx, it)
+        PUSH DWORD PTR [EBP - 5]                        ; it (Local)
+        PUSH DWORD PTR [EBP - 9]                        ; nx (Local)
+        MOV EBX, [EBP + 28]                             
+        CALL EBX                                        ; iter_swap(nx, it)
 
-  MOV BYTE PTR [EBP - 1], 00h                     ; range is possibily unsorted
+        MOV BYTE PTR [EBP - 1], 00h                     ; range is possibily unsorted
 
-END_IF3:
+      END_IF3:
 
-  MOV EAX, [EBP - 9]
-  MOV DWORD PTR [EBP - 5], EAX                    ; ++it (in other words, it = nx)
+      MOV EAX, [EBP - 9]
+      MOV DWORD PTR [EBP - 5], EAX                    ; ++it (in other words, it = nx)
 
-  JMP LOOP2
-END_LOOP2:
+      JMP LOOP2
+    END_LOOP2:
 
-  MOVSX EAX, BYTE PTR [EBP - 1]
-  CMP EAX, 0FFFFFFFFh
+    MOVSX EAX, BYTE PTR [EBP - 1]
+    CMP EAX, 0FFFFFFFFh
   
-  JZ END_LOOP1
-  JMP LOOP1
-END_LOOP1:
+    JZ END_LOOP1
+    JMP LOOP1
+  END_LOOP1:
   
   POPAD                                           ; Restore flags
   MOV ESP, EBP                                    ; Restore ESP
   POP EBP                                         ; Restore EBP
 
   RET 40
-
 BubbleSort ENDP

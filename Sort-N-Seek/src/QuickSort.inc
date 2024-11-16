@@ -58,72 +58,72 @@ Partition PROC
 
   MOV DWORD PTR [EBP - 8], EAX        ; i = copy_it(first)
 
-PRE_LOOP_30:                          ; pre-forloop initializations
-  PUSH DWORD PTR [EBP + 8]
-  MOV EBX, [EBP + 20]
-  CALL EBX
+  PRE_LOOP_30:                          ; pre-forloop initializations
+    PUSH DWORD PTR [EBP + 8]
+    MOV EBX, [EBP + 20]
+    CALL EBX
 
-  MOV DWORD PTR [EBP - 12], EAX       ; j = copy_it(first)
+    MOV DWORD PTR [EBP - 12], EAX       ; j = copy_it(first)
 
-LOOP_30:  
-  ; Loop Condition: next(j) != last
-  MOV EAX, 1
-  PUSH EAX
-  PUSH DWORD PTR [EBP - 12]
-  MOV EBX, [EBP + 36]
-  CALL EBX
+  LOOP_30:  
+    ; Loop Condition: next(j) != last
+    MOV EAX, 1
+    PUSH EAX
+    PUSH DWORD PTR [EBP - 12]
+    MOV EBX, [EBP + 36]
+    CALL EBX
 
-  PUSH DWORD PTR [EBP + 12]
-  PUSH EAX
-  MOV EBX, [EBP + 24]
-  CALL EBX
+    PUSH DWORD PTR [EBP + 12]
+    PUSH EAX
+    MOV EBX, [EBP + 24]
+    CALL EBX
 
-  CMP EAX, 0
-  JZ END_LOOP_30
+    CMP EAX, 0
+    JZ END_LOOP_30
 
-IF_30:
-  ; Calling pred(*j, *p) 
-  PUSH DWORD PTR [EBP - 4]
-  MOV EBX, [EBP + 16]                ; *p
-  CALL EBX
+  IF_30:
+    ; Calling pred(*j, *p) 
+    PUSH DWORD PTR [EBP - 4]
+    MOV EBX, [EBP + 16]                ; *p
+    CALL EBX
 
-  PUSH EAX
+    PUSH EAX
 
-  PUSH DWORD PTR [EBP - 12]
-  MOV EBX, [EBP + 16]                ; *y
-  CALL EBX
+    PUSH DWORD PTR [EBP - 12]
+    MOV EBX, [EBP + 16]                ; *y
+    CALL EBX
 
-  PUSH EAX
+    PUSH EAX
 
-  MOV EBX, [EBP + 32]
-  CALL EBX
+    MOV EBX, [EBP + 32]
+    CALL EBX
 
-  CMP EAX, 0                         ; if pred(*j, *p) == True, proceed to swapping
-  JZ END_IF_30
+    CMP EAX, 0                         ; if pred(*j, *p) == True, proceed to swapping
+    JZ END_IF_30
 
-  PUSH DWORD PTR [EBP - 8]           ; i (Local)
-  PUSH DWORD PTR [EBP - 12]          ; j (Local)
-  MOV EBX, [EBP + 28]                ; iter_swap(i, j)
-  CALL EBX     
+    PUSH DWORD PTR [EBP - 8]           ; i (Local)
+    PUSH DWORD PTR [EBP - 12]          ; j (Local)
+    MOV EBX, [EBP + 28]                ; iter_swap(i, j)
+    CALL EBX     
 
-  MOV EAX, 1
-  PUSH EAX
-  PUSH DWORD PTR [EBP - 8]
-  MOV EBX, [EBP + 36]
-  CALL EBX
+    MOV EAX, 1
+    PUSH EAX
+    PUSH DWORD PTR [EBP - 8]
+    MOV EBX, [EBP + 36]
+    CALL EBX
 
-  MOV DWORD PTR [EBP - 8], EAX       ; After swapping, ++i
-END_IF_30:
+    MOV DWORD PTR [EBP - 8], EAX       ; After swapping, ++i
+  END_IF_30:
   
-  MOV EAX, 1
-  PUSH EAX
-  PUSH DWORD PTR [EBP - 12]
-  MOV EBX, [EBP + 36]
-  CALL EBX
+    MOV EAX, 1
+    PUSH EAX
+    PUSH DWORD PTR [EBP - 12]
+    MOV EBX, [EBP + 36]
+    CALL EBX
 
-  MOV DWORD PTR [EBP - 12], EAX     ; after each iteration, ++j
-  JMP LOOP_30
-END_LOOP_30:
+    MOV DWORD PTR [EBP - 12], EAX     ; after each iteration, ++j
+    JMP LOOP_30
+  END_LOOP_30:
   
   ; we reached correct position, perform iter_swap(i, p)
   ; and return i

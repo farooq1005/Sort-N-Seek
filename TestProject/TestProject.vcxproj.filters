@@ -15,28 +15,8 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <MASM Include="src\MAIN.asm">
+    <ClCompile Include="src\Source.cpp">
       <Filter>Source Files</Filter>
-    </MASM>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="src\BubbleSort.inc">
-      <Filter>Header Files</Filter>
-    </None>
-    <None Include="src\SelectionSort.inc">
-      <Filter>Header Files</Filter>
-    </None>
-    <None Include="src\CombSort.inc">
-      <Filter>Header Files</Filter>
-    </None>
-    <None Include="src\MergeSort.inc">
-      <Filter>Header Files</Filter>
-    </None>
-    <None Include="src\QuickSort.inc">
-      <Filter>Header Files</Filter>
-    </None>
-    <None Include="src\RadixSort.inc">
-      <Filter>Header Files</Filter>
-    </None>
+    </ClCompile>
   </ItemGroup>
 </Project>
