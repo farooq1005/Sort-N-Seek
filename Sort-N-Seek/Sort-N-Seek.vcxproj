@@ -16,9 +16,10 @@
   <ItemGroup>
     <None Include="src\BubbleSort.inc" />
     <None Include="src\CombSort.inc" />
+    <None Include="src\HeapSort.inc" />
+    <None Include="src\ITERATOR.inc" />
     <None Include="src\MergeSort.inc" />
     <None Include="src\QuickSort.inc" />
-    <None Include="src\RadixSort.inc" />
     <None Include="src\SelectionSort.inc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

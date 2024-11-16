@@ -35,7 +35,10 @@
     <None Include="src\QuickSort.inc">
       <Filter>Header Files</Filter>
     </None>
-    <None Include="src\RadixSort.inc">
+    <None Include="src\ITERATOR.inc">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="src\HeapSort.inc">
       <Filter>Header Files</Filter>
     </None>
   </ItemGroup>

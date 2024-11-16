@@ -1,161 +1,173 @@
 INCLUDE Irvine32.inc
-INCLUDE BubbleSort.inc
-INCLUDE SelectionSort.inc
-INCLUDE MergeSort.inc
-INCLUDE QuickSort.inc
-INCLUDE CombSort.inc
+INCLUDE ITERATOR.inc
 
 .DATA
   myArr DD 3, 2, 5, 6, 1, 7, 8, 9, 0
 
 .CODE
-Deref PROC
-  PUSH EBP
-  MOV EBP, ESP
 
-  MOV EAX, [EBP + 8]
-  MOV ECX, [EAX]
-  MOV EAX, [EAX]
+Copy PROC USES ESI EAX EBX ECX
+  ; Stack Frame:
+  ; [EBP+8] = Iterator address
+  ; Copies the iterator to the memory pointed by EDI (preserving EDI)
+
+  ENTER 0, 0
+
+  MOV ESI, [EBP+8]        
+
+  MOV ECX, SIZEOF Iterator
+  CLD
+  REP MOVSB        
+
+  LEAVE
+  RET 4    
+Copy ENDP
+
+; Procedures for Iterator_Functions
+Next PROC USES ESI EAX EBX ECX
+  ; Stack Frame: 
+  ; [EBP+8] = Iterator address
+  ; [EBP+12] = Offset
+  ; Return: Address of the updated iterator in EDI
   
-  MOV ESP, EBP
-  POP EBP
-  RET 4
-Deref ENDP
+  ENTER 0, 0       
+  PUSH DWORD PTR [EBP+8]
+  CALL Copy
 
-CopyIter PROC
-  PUSH EBP
-  MOV EBP, ESP
-
-  MOV EAX, [EBP + 8]
-
-  MOV ESP, EBP
-  POP EBP
-  RET 4
-CopyIter ENDP
-
-Compare PROC
-  PUSH EBP
-  MOV EBP, ESP
-
-  MOV EDX, [EBP + 8]                        ; First iterator
-  MOV EAX, [EBP + 12]                       ; Second iterator
-
-  SUB EAX, EDX
-
-  MOV ESP, EBP
-  POP EBP
-  RET 8
-Compare ENDP
-
-IterSwap PROC
-  PUSH EBP
-  MOV EBP, ESP
-
-  MOV ESI, [EBP + 8]                        ; First iterator
-  MOV EDI, [EBP + 12]                       ; Second iterator
-
-  MOV EAX, [ESI]
-  MOV EDX, [EDI]
-
-  MOV DWORD PTR [ESI], EDX
-  MOV DWORD PTR [EDI], EAX
-
-  MOV ESP, EBP
-  POP EBP
-  RET 8
-IterSwap ENDP
-
-Predicate PROC                              ; simulating std::less<T> function (EAX < EDX)
-  PUSH EBP
-  MOV EBP, ESP
-
-  MOV EAX, [EBP + 8]                        ; First value
-  MOV EDX, [EBP + 12]                       ; Second value
-
-  CMP EAX, EDX
-
-If1000: 
-  JL If1001
-
-  MOV EAX, 0
-  JMP Endif_1000
-
-If1001:
-  MOV EAX, 1
-
-Endif_1000:
-
-  MOV ESP, EBP
-  POP EBP
-  RET 8
-Predicate ENDP
-
-Next PROC
-  PUSH EBP
-  MOV EBP, ESP
-
-  MOV ESI, [EBP + 8]
-  MOV EAX, 4
-  MUL DWORD PTR [EBP + 12]
-
-  ADD ESI, EAX
-  XCHG EAX, ESI
-
-  MOV ESP, EBP
-  POP EBP
-  RET 8
+  MOV ESI, [EBP+8]               
+  MOV EAX, (Iterator PTR [ESI]).pointer 
+  MOV EBX, (Iterator PTR [ESI]).value_type
+  
+  MOV ECX, [EBP+12]              
+  IMUL EBX, ECX                  
+  
+  ADD EAX, EBX                   
+  MOV DWORD PTR (Iterator PTR [EDI]).pointer, EAX               
+                        
+  LEAVE
+  RET 8                          
 Next ENDP
 
-Prev PROC
-  PUSH EBP
-  MOV EBP, ESP
-
-  MOV ESI, [EBP + 8]
-  MOV EAX, 4
-  MOV EDX, DWORD PTR [EBP + 12]
-  MUL EDX
-
-  SUB ESI, EAX
-  XCHG EAX, ESI
-
-  MOV ESP, EBP
-  POP EBP
-  RET 8
-Prev ENDP
-
-Distance PROC
-  PUSH EBP
-  MOV EBP, ESP
-
-  MOV EDX, [EBP + 8]
-  MOV EAX, [EBP + 12]
-
-  SUB EAX, EDX
+Previous PROC USES ESI EAX EBX ECX
+  ; Stack Frame: 
+  ; [EBP+8] = Iterator address
+  ; [EBP+12] = Offset
+  ; Return: Address of the updated iterator in EDI
   
-  MOV EDX, 0
-  MOV ECX, 4
-  DIV ECX
+  ENTER 0, 0 
+  PUSH DWORD PTR [EBP+8]
+  CALL Copy                 
 
-  MOV ESP, EBP
-  POP EBP
+  MOV ESI, [EBP+8]               
+  MOV EAX, (Iterator PTR [ESI]).pointer 
+  MOV EBX, (Iterator PTR [ESI]).value_type
+  
+  MOV ECX, [EBP+12]              
+  IMUL EBX, ECX                  
+  
+  SUB EAX, EBX                   
+  MOV DWORD PTR (Iterator PTR [EDI]).pointer, EAX                 
+                        
+  LEAVE
+  RET 8                          
+Previous ENDP
+
+Compare PROC USES ESI EDI EAX EBX ECX
+  ; Stack Frame:
+  ; [EBP+8] = Iterator 1 address
+  ; [EBP+12] = Iterator 2 address
+  ; Return: Comparison result (0, <0, >0) in EAX
+
+  ENTER 0, 0
+
+  MOV ESI, [EBP+8]  
+  MOV EDI, [EBP+12] 
+
+  MOV EAX, (Iterator PTR [ESI]).pointer
+  MOV EBX, (Iterator PTR [EDI]).pointer
+  SUB EAX, EBX
+
+  LEAVE
+  RET 8 
+Compare ENDP
+
+Dereference PROC USES ESI EAX EBX ECX
+  ; Stack Frame:
+  ; [EBP+8] = Iterator address
+  ; Return: Value in memory pointed by EDI
+
+  ENTER 0, 0
+
+  MOV EAX, [EBP+8]
+  MOV ESI, (Iterator PTR [EAX]).pointer
+  MOV ECX, (Iterator PTR [EAX]).value_type
+  CLD
+  REP MOVSB 
+
+  LEAVE
+  RET 4  
+Dereference ENDP
+
+Swap PROC USES ESI EDI EAX EBX ECX
+  ; Stack Frame:
+  ; [EBP+8] = Iterator 1 address
+  ; [EBP+12] = Iterator 2 address
+  ; Return: Nothing
+
+  ENTER 0, 0
+
+  MOV EAX, (Iterator PTR [EBP+8]).value_type
+  SUB ESP, EAX
+
+  ; Approach: Move one value to a temporary storage
+  ; then, copy one value to another iterator 
+  ; then, copy the temporary storage to the iterator
+  MOV ESI, (Iterator PTR [EBP+8]).pointer
+  MOV EDI, ESP
+  MOV ECX, EAX
+  REP MOVSB
+
+  MOV ESI, (Iterator PTR [EBP+12]).pointer
+  MOV EDI, (Iterator PTR [EBP+8]).pointer
+  MOV ECX, EAX
+  REP MOVSB
+
+  MOV ESI, ESP
+  MOV EDI, (Iterator PTR [EBP+12]).pointer
+  MOV ECX, EAX
+  REP MOVSB
+
+  ADD ESP, EAX
+
+  LEAVE
+  RET 8
+Swap ENDP
+
+Distance PROC USES ESI EDI EBX ECX
+  ; Stack Frame:
+  ; [EBP+8] = Iterator 1 address
+  ; [EBP+12] = Iterator 2 address
+  ; Return: Distance in EAX (number of elements)
+
+  ENTER 0, 0
+
+  MOV ESI, [EBP+8]
+  MOV EDI, [EBP+12]
+
+  MOV EBX, (Iterator PTR [ESI]).pointer 
+  MOV EAX, (Iterator PTR [EDI]).pointer
+  
+  SUB EAX, EBX 
+  CDQ
+
+  MOV ECX, [ESI].Iterator.value_type
+  IDIV ECX 
+
+  LEAVE
   RET 8
 Distance ENDP
 
 MAIN PROC
-  PUSH OFFSET Distance
-  PUSH OFFSET Prev
-  PUSH OFFSET Next
-  PUSH OFFSET Predicate
-  PUSH OFFSET IterSwap
-  PUSH OFFSET Compare
-  PUSH OFFSET CopyIter
-  PUSH OFFSET Deref
-  PUSH OFFSET myArr
-  ADD DWORD PTR [ESP], SIZEOF myArr
-  PUSH OFFSET myArr
-
-  CALL CombSort
-
   MOV ESI, OFFSET myArr
   MOV ECX, LENGTHOF myArr
   MOV EBX, TYPE myArr
