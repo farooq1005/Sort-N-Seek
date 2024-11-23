@@ -13,24 +13,18 @@
 
 ; ------------------------------------------------------------------
 ; Parameters (Merge):
-; 8 = First Iterator: 4 bytes (object) address
-; 12 = Mid Iterator: 4 bytes (object) address 
-; 16 = Last Iterator: 4 bytes (object) address
-; 20 = Dereference: 4 bytes (procedure with one operand: iterator address) (returns address of an object in EAX) address
-; 24 = Copy_iter: 4 bytes (procedure with one operand: iterator address) (returns address of new iterator in EAX) address
-; 28 = Compare: 4 bytes (procedure with two operands: two iterators (address ofc)) (returns the compare result in EAX) address
-; 32 = Iter_swap: 4 bytes (procedure with two operands: two iterators (address ofc)) (void return) address
-; 36 = Predicate: 4 bytes (procedure with two operands: addresses of two objects) (returns bool in AL) address
-; 40 = Next: 4 bytes (procedure with two operand: iterator and integer) (return address of an iterator in EAX) address
-; 44 = Previous: 4 bytes (procedure with two operands: iterator and integer) (returns address of an iterator EAX) address
-; 48 = Distance: 4 bytes (procedure with two operands: iterator and integer) (returns address of an iterator EAX) 
-; Total size of parameterrs: 44 bytes
+; 4 bytes: [EBP+8] = First iterator address
+; 4 bytes: [EBP+12] = Last iterator address
+; 4 bytes: [EBP+16] = n (size of the container)
+; 4 bytes: [EBP+20] = i (index of the element being heapified)
+; 4 bytes: [EBP+24] = Comparator function address (takes reference to the objects)
+; Return: None (in-place modification)
 ;
 ; Local Variables:
 ; 4 = iterator #1 (i)
 ; 8 = iterator #2 (j)
-; 12 = value
-; 16 = index
+; 12 = index
+; 16 = value
 ; 20 = value
 ; 24 = extra storage
 ;
@@ -40,7 +34,7 @@
 .code
 
 Merge PROC
-	enter 20, 0
+	enter 12, 0
 	PUSHAD
 	
 	; initialize iterator #1 (i)

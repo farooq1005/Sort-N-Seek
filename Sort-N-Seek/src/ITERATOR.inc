@@ -16,13 +16,13 @@
 ; the address of an iterator of same type 
 ; The return values should be moved to the memory location pointed by EDI
 ; 
-; 4 bytes: Next function | returns -> 4-byte address of an iterator | 4x2-byte arguments -> (it, int_offset)
+; 4 bytes: Next function	 | returns -> 4-byte address of an iterator | 4x2-byte arguments -> (it, int_offset)
 ; 4 bytes: Previous function | returns -> 4-byte address of an iterator | 4x2-byte arguments -> (it, int_offset)
-; 4 bytes: Copy function | returns -> 4-byte address of an iterator | 4x1-byte argument -> (it)
-; 4 bytes: Compare function | returns -> 4-byte int 0, < 0, > 0 in EAX | 4x2-byte arguments -> (it, it)
-; 4 bytes: Deref function | returns -> value_type-byte object | 4x1-byte argument -> (it)
-; 4 bytes: Distance function | returns -> 4-byte int distance in EAX | 4x2-byte arguments -> (it, it)
-; 4 bytes: Swap function | returns -> none | 4x2-byte arguments -> (it, it)
+; 4 bytes: Copy function	 | returns -> 4-byte address of an iterator | 4x1-byte argument	 -> (it)
+; 4 bytes: Compare function  | returns -> 4-byte int 0, < 0, > 0 in EAX | 4x2-byte arguments -> (it, it)
+; 4 bytes: Deref function	 | returns -> value_type-byte object        | 4x1-byte argument	 -> (it)
+; 4 bytes: Distance function | returns -> 4-byte int distance in EAX    | 4x2-byte arguments -> (it, it)
+; 4 bytes: Swap function     | returns -> none							| 4x2-byte arguments -> (it, it)
 ; 
 ; ---------------------------------------------------------------------------------------------------------------
 ; Now comes the question, how to initialize an iterator. 

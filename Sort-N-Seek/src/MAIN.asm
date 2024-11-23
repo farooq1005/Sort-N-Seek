@@ -1,6 +1,7 @@
 INCLUDE Irvine32.inc
 INCLUDE ITERATOR.inc
 INCLUDE HeapSort.inc
+INCLUDE SelectionSort.inc
 
 .CODE
 
@@ -356,7 +357,7 @@ Main PROC
   PUSH EBX
   LEA EAX, iterator_start
   PUSH EAX
-  CALL HeapSort
+  CALL SelectionSort
 
   CALL Crlf
 
