@@ -1,6 +1,7 @@
 INCLUDE Irvine32.inc
 INCLUDE ITERATOR.inc
 INCLUDE HeapSort.inc
+INCLUDE BubbleSort.inc
 INCLUDE SelectionSort.inc
 
 .CODE
@@ -354,10 +355,11 @@ Main PROC
 
   MOV EAX, OFFSET Predicate
   PUSH EAX
-  PUSH EBX
+  LEA EAX, iterator_end
+  PUSH EAX
   LEA EAX, iterator_start
   PUSH EAX
-  CALL SelectionSort
+  CALL BubbleSort
 
   CALL Crlf
 
