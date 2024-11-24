@@ -4,6 +4,7 @@ INCLUDE HeapSort.inc
 INCLUDE BubbleSort.inc
 INCLUDE SelectionSort.inc
 INCLUDE QuickSort.inc
+INCLUDE InsertionSort.inc
 
 .CODE
 
@@ -35,9 +36,8 @@ Assign PROC
 
   MOV ESI, [EBP+12]
   MOV EDI, [EBP+8]
-  MOV EDI, (Iterator PTR [EDI]).pointer
-
   MOV ECX, (Iterator PTR [EDI]).value_type
+  MOV EDI, (Iterator PTR [EDI]).pointer
   CLD
   REP MOVSB
 
@@ -361,7 +361,7 @@ Main PROC
   PUSH EAX
   LEA EAX, iterator_start
   PUSH EAX
-  CALL QuickSort
+  CALL InsertionSort
 
   CALL Crlf
 
