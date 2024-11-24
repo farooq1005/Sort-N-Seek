@@ -11,7 +11,7 @@ INCLUDE SelectionSort.inc
 Copy PROC
   ; Stack Frame:
   ; [EBP+8] = Iterator address
-  ; Copies the iterator to the memory pointed by EDI (preserving EDI)
+  ; Copies the iterator to the memory pointed by EDI (preserving EDI) 
 
   ENTER 0, 0
   PUSHAD
