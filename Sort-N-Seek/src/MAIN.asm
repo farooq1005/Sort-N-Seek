@@ -3,6 +3,7 @@ INCLUDE ITERATOR.inc
 INCLUDE HeapSort.inc
 INCLUDE BubbleSort.inc
 INCLUDE SelectionSort.inc
+INCLUDE QuickSort.inc
 
 .CODE
 
@@ -309,7 +310,7 @@ END_MAIN_PRINT_LOOP:
 PrintRange ENDP
 
 .DATA
-  myArr DD 3, 2, 5, 6, 1, 7, 8, 9, 0  ; Array to iterate
+  myArr DD 3, 2, 5, 6, 1, 7, 8, 9, 0, 4  ; Array to iterate
   iterator_start Iterator <>          ; Starting iterator
   iterator_end Iterator <>            ; Ending iterator
   iter_functions Iterator_Functions <> ; Iterator functions
@@ -359,7 +360,7 @@ Main PROC
   PUSH EAX
   LEA EAX, iterator_start
   PUSH EAX
-  CALL BubbleSort
+  CALL QuickSort
 
   CALL Crlf
 
