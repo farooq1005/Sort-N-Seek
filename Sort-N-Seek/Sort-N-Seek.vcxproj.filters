@@ -44,5 +44,8 @@
     <None Include="src\InsertionSort.inc">
       <Filter>Header Files</Filter>
     </None>
+    <None Include="src\ShellSort.inc">
+      <Filter>Header Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

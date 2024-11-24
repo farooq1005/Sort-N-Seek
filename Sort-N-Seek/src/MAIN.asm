@@ -361,7 +361,7 @@ Main PROC
   PUSH EAX
   LEA EAX, iterator_start
   PUSH EAX
-  CALL InsertionSort
+  CALL HeapSort
 
   CALL Crlf
 
