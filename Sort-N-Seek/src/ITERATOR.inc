@@ -40,7 +40,7 @@ Iterator_Functions STRUCT
   _dref DD ?
   _dist DD ?
   _swap DD ?
-  _assg DD ?
+  _asig DD ?
 Iterator_Functions ENDS
 
 Iterator STRUCT 

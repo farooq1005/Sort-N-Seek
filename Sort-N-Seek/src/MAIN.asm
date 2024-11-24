@@ -3,8 +3,9 @@ INCLUDE ITERATOR.inc
 INCLUDE HeapSort.inc
 INCLUDE CombSort.inc
 INCLUDE ShellSort.inc
-INCLUDE MergeSort.inc
 INCLUDE SelectionSort.inc
+INCLUDE QuickSort.inc
+INCLUDE InsertionSort.inc
 
 .CODE
 
@@ -231,8 +232,6 @@ Predicate PROC
 
   ENTER 0, 0
   PUSH EBX
-  
-  PUSH EBX
 
   MOV EAX, [EBP+8]
   MOV EAX, [EAX]
@@ -310,7 +309,7 @@ END_MAIN_PRINT_LOOP:
 PrintRange ENDP
 
 .DATA
-  myArr DD 3, 2, 5, 6, 1, 7, 8, 9, 0  ; Array to iterate
+  myArr DD 3, 2, 5, 6, 1, 7, 8, 9, 0, 4  ; Array to iterate
   iterator_start Iterator <>          ; Starting iterator
   iterator_end Iterator <>            ; Ending iterator
   iter_functions Iterator_Functions <> ; Iterator functions
@@ -338,7 +337,7 @@ Main PROC
   MOV iter_functions._swap, OFFSET Swap
   MOV iter_functions._comp, OFFSET Compare
   MOV iter_functions._dref, OFFSET Dereference
-  MOV iter_functions._assg, OFFSET Assign
+  MOV iter_functions._asig, OFFSET Assign
 
   MOV EBX, OFFSET Next
   MOV EBX, OFFSET Compare
@@ -358,7 +357,8 @@ Main PROC
   PUSHAD
   MOV EAX, OFFSET Predicate
   PUSH EAX
-  PUSH EBX
+  LEA EAX, iterator_end
+  PUSH EAX
   LEA EAX, iterator_start
   PUSH EAX
   CALL ShellSort
