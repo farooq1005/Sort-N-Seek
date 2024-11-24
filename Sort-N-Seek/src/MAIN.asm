@@ -1,6 +1,10 @@
 INCLUDE Irvine32.inc
 INCLUDE ITERATOR.inc
 INCLUDE HeapSort.inc
+INCLUDE BubbleSort.inc
+INCLUDE SelectionSort.inc
+INCLUDE QuickSort.inc
+INCLUDE InsertionSort.inc
 
 .CODE
 
@@ -11,7 +15,6 @@ Copy PROC
 
   ENTER 0, 0
   PUSHAD
-
   MOV ESI, [EBP+8]        
 
   MOV ECX, SIZEOF Iterator
@@ -23,6 +26,26 @@ Copy PROC
   RET 4    
 Copy ENDP
 
+Assign PROC
+  ; Stack Frame:
+  ; [EBP+8] = Iterator address
+  ; [EBP+12] = Value address 
+
+  ENTER 0, 0
+  PUSHAD
+
+  MOV ESI, [EBP+12]
+  MOV EDI, [EBP+8]
+  MOV ECX, (Iterator PTR [EDI]).value_type
+  MOV EDI, (Iterator PTR [EDI]).pointer
+  CLD
+  REP MOVSB
+
+  POPAD
+  LEAVE
+  RET 8
+Assign ENDP
+
 ; Procedures for Iterator_Functions
 Next PROC
   ; Stack Frame: 
@@ -30,7 +53,7 @@ Next PROC
   ; [EBP+12] = Offset
   ; Return: Address of the updated iterator in EDI
   
-  ENTER 0, 0     
+  ENTER 0, 0 
   PUSHAD
   PUSH DWORD PTR [EBP+8]
   CALL Copy
@@ -287,7 +310,7 @@ END_MAIN_PRINT_LOOP:
 PrintRange ENDP
 
 .DATA
-  myArr DD 3, 2, 5, 6, 1, 7, 8, 9, 0  ; Array to iterate
+  myArr DD 3, 2, 5, 6, 1, 7, 8, 9, 0, 4  ; Array to iterate
   iterator_start Iterator <>          ; Starting iterator
   iterator_end Iterator <>            ; Ending iterator
   iter_functions Iterator_Functions <> ; Iterator functions
@@ -315,6 +338,7 @@ Main PROC
   MOV iter_functions._swap, OFFSET Swap
   MOV iter_functions._comp, OFFSET Compare
   MOV iter_functions._dref, OFFSET Dereference
+  MOV iter_functions._asig, OFFSET Assign
 
   MOV EBX, OFFSET Next
   MOV EBX, OFFSET Compare
@@ -333,10 +357,11 @@ Main PROC
 
   MOV EAX, OFFSET Predicate
   PUSH EAX
-  PUSH EBX
+  LEA EAX, iterator_end
+  PUSH EAX
   LEA EAX, iterator_start
   PUSH EAX
-  CALL HeapSort
+  CALL InsertionSort
 
   CALL Crlf
 
