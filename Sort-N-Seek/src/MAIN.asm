@@ -338,6 +338,7 @@ Main PROC
   MOV iter_functions._swap, OFFSET Swap
   MOV iter_functions._comp, OFFSET Compare
   MOV iter_functions._dref, OFFSET Dereference
+  MOV iter_functions._asig, OFFSET Assign
 
   MOV EBX, OFFSET Next
   MOV EBX, OFFSET Compare
