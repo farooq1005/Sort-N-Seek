@@ -41,5 +41,8 @@
     <None Include="src\HeapSort.inc">
       <Filter>Header Files</Filter>
     </None>
+    <None Include="ShellSort.inc">
+      <Filter>Header Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

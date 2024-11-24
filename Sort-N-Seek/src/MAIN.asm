@@ -1,6 +1,9 @@
 INCLUDE Irvine32.inc
 INCLUDE ITERATOR.inc
 INCLUDE HeapSort.inc
+INCLUDE CombSort.inc
+INCLUDE ShellSort.inc
+INCLUDE MergeSort.inc
 INCLUDE SelectionSort.inc
 
 .CODE
@@ -33,9 +36,8 @@ Assign PROC
 
   MOV ESI, [EBP+12]
   MOV EDI, [EBP+8]
-  MOV EDI, (Iterator PTR [EDI]).pointer
-
   MOV ECX, (Iterator PTR [EDI]).value_type
+  MOV EDI, (Iterator PTR [EDI]).pointer
   CLD
   REP MOVSB
 
@@ -336,6 +338,7 @@ Main PROC
   MOV iter_functions._swap, OFFSET Swap
   MOV iter_functions._comp, OFFSET Compare
   MOV iter_functions._dref, OFFSET Dereference
+  MOV iter_functions._assg, OFFSET Assign
 
   MOV EBX, OFFSET Next
   MOV EBX, OFFSET Compare
@@ -352,12 +355,14 @@ Main PROC
   LEA EAX, myArr
   MOV iterator_start.pointer, EAX 
 
+  PUSHAD
   MOV EAX, OFFSET Predicate
   PUSH EAX
   PUSH EBX
   LEA EAX, iterator_start
   PUSH EAX
-  CALL SelectionSort
+  CALL ShellSort
+  POPAD
 
   CALL Crlf
 

@@ -22,7 +22,8 @@
 ; 4 bytes: Compare function  | returns -> 4-byte int 0, < 0, > 0 in EAX | 4x2-byte arguments -> (it, it)
 ; 4 bytes: Deref function	 | returns -> value_type-byte object        | 4x1-byte argument	 -> (it)
 ; 4 bytes: Distance function | returns -> 4-byte int distance in EAX    | 4x2-byte arguments -> (it, it)
-; 4 bytes: Swap function     | returns -> none							| 4x2-byte arguments -> (it, it)
+; 4 bytes: Swap function     | returns -> none							| 4x2-byte arguments -> (it, it
+; 4 bytes: Assign function	 | returns -> none							| 4x2-byte arguments -> (it, value)
 ; 
 ; ---------------------------------------------------------------------------------------------------------------
 ; Now comes the question, how to initialize an iterator. 
@@ -39,6 +40,7 @@ Iterator_Functions STRUCT
   _dref DD ?
   _dist DD ?
   _swap DD ?
+  _assg DD ?
 Iterator_Functions ENDS
 
 Iterator STRUCT 
