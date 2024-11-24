@@ -5,6 +5,7 @@ INCLUDE BubbleSort.inc
 INCLUDE SelectionSort.inc
 INCLUDE QuickSort.inc
 INCLUDE InsertionSort.inc
+INCLUDE test.inc
 
 .CODE
 
@@ -231,8 +232,6 @@ Predicate PROC
 
   ENTER 0, 0
   PUSH EBX
-  
-  PUSH EBX
 
   MOV EAX, [EBP+8]
   MOV EAX, [EAX]
@@ -361,7 +360,7 @@ Main PROC
   PUSH EAX
   LEA EAX, iterator_start
   PUSH EAX
-  CALL HeapSort
+  CALL ShellSort
 
   CALL Crlf
 

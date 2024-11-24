@@ -24,6 +24,9 @@
     <None Include="src\SelectionSort.inc" />
     <None Include="src\ShellSort.inc" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\test.inc" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
