@@ -7,6 +7,7 @@ INCLUDE BubbleSort.inc
 INCLUDE SelectionSort.inc
 INCLUDE QuickSort.inc
 INCLUDE InsertionSort.inc
+INCLUDE MergeSort.inc
 
 .CODE
 
@@ -37,6 +38,7 @@ Assign PROC
   PUSHAD
 
   MOV ESI, [EBP+12]
+  MOV EBX, [ESI]
   MOV EDI, [EBP+8]
   MOV ECX, (Iterator PTR [EDI]).value_type
   MOV EDI, (Iterator PTR [EDI]).pointer
@@ -67,10 +69,8 @@ Next PROC
   MOV ECX, [EBP+12]              
   IMUL EBX, ECX                  
   
-  ADD EAX, EBX                   
-  MOV EBX, (Iterator PTR [EDI]).pointer                     ; for the sake of debugging
-  MOV DWORD PTR (Iterator PTR [EDI]).pointer, EAX               
-  MOV EBX, (Iterator PTR [EDI]).pointer                     ; for the sake of debugging
+  ADD EAX, EBX
+  MOV DWORD PTR (Iterator PTR [EDI]).pointer, EAX
       
   POPAD
   LEAVE
@@ -362,7 +362,7 @@ Main PROC
   PUSH EAX
   LEA EAX, iterator_start
   PUSH EAX
-  CALL ShellSort
+  CALL MergeSort
   POPAD
 
   CALL Crlf

@@ -14,7 +14,6 @@
     <MASM Include="src\MAIN.asm" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ShellSort.inc" />
     <None Include="src\BubbleSort.inc" />
     <None Include="src\CombSort.inc" />
     <None Include="src\HeapSort.inc" />
@@ -23,6 +22,7 @@
     <None Include="src\MergeSort.inc" />
     <None Include="src\QuickSort.inc" />
     <None Include="src\SelectionSort.inc" />
+    <None Include="src\ShellSort.inc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

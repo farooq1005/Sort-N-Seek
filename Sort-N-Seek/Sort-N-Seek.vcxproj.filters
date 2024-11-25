@@ -48,9 +48,4 @@
       <Filter>Header Files</Filter>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\test.inc">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
 </Project>
