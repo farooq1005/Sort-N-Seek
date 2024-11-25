@@ -36,9 +36,6 @@ heapify PROC
   MUL ECX
   SUB ESP, EAX
 
-  ; save the registers after allocating enough space for the function
-  PUSHAD
-
   ; store the function pointers object first hand
   MOV ECX, [EBP+8]
   MOV ECX, (Iterator PTR [ECX]).function_pointers
@@ -242,12 +239,14 @@ HeapSort PROC
     CMP DWORD PTR [EBP-8], 0
     JL END_HEAPIFY_LOOP
 
+    PUSHAD
     PUSH DWORD PTR [EBP+16]
     PUSH DWORD PTR [EBP-8]
     PUSH DWORD PTR [EBP-4]
     PUSH DWORD PTR [EBP+12]
     PUSH DWORD PTR [EBP+8]
     CALL heapify
+    POPAD
 
     SUB DWORD PTR [EBP-8], 1
     JMP HEAPIFY_LOOP

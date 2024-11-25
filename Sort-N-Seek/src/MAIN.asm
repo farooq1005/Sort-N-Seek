@@ -1,6 +1,8 @@
 INCLUDE Irvine32.inc
 INCLUDE ITERATOR.inc
 INCLUDE HeapSort.inc
+INCLUDE CombSort.inc
+INCLUDE ShellSort.inc
 INCLUDE BubbleSort.inc
 INCLUDE SelectionSort.inc
 INCLUDE QuickSort.inc
@@ -11,7 +13,7 @@ INCLUDE InsertionSort.inc
 Copy PROC
   ; Stack Frame:
   ; [EBP+8] = Iterator address
-  ; Copies the iterator to the memory pointed by EDI (preserving EDI)
+  ; Copies the iterator to the memory pointed by EDI (preserving EDI) 
 
   ENTER 0, 0
   PUSHAD
@@ -231,8 +233,6 @@ Predicate PROC
 
   ENTER 0, 0
   PUSH EBX
-  
-  PUSH EBX
 
   MOV EAX, [EBP+8]
   MOV EAX, [EAX]
@@ -355,13 +355,15 @@ Main PROC
   LEA EAX, myArr
   MOV iterator_start.pointer, EAX 
 
+  PUSHAD
   MOV EAX, OFFSET Predicate
   PUSH EAX
   LEA EAX, iterator_end
   PUSH EAX
   LEA EAX, iterator_start
   PUSH EAX
-  CALL InsertionSort
+  CALL ShellSort
+  POPAD
 
   CALL Crlf
 
