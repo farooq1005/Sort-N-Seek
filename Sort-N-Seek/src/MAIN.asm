@@ -3,6 +3,7 @@ INCLUDE ITERATOR.inc
 INCLUDE HeapSort.inc
 INCLUDE CombSort.inc
 INCLUDE ShellSort.inc
+INCLUDE BubbleSort.inc
 INCLUDE SelectionSort.inc
 INCLUDE QuickSort.inc
 INCLUDE InsertionSort.inc
