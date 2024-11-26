@@ -47,5 +47,8 @@
     <None Include="src\ShellSort.inc">
       <Filter>Header Files</Filter>
     </None>
+    <None Include="src\BinarySearch.inc">
+      <Filter>Header Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

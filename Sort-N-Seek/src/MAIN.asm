@@ -2,12 +2,13 @@ INCLUDE Irvine32.inc
 INCLUDE ITERATOR.inc
 INCLUDE HeapSort.inc
 INCLUDE CombSort.inc
-INCLUDE ShellSort.inc
-INCLUDE BubbleSort.inc
-INCLUDE SelectionSort.inc
 INCLUDE QuickSort.inc
-INCLUDE InsertionSort.inc
+INCLUDE ShellSort.inc
 INCLUDE MergeSort.inc
+INCLUDE BubbleSort.inc
+INCLUDE BinarySearch.inc
+INCLUDE SelectionSort.inc
+INCLUDE InsertionSort.inc
 
 .CODE
 
@@ -314,6 +315,7 @@ PrintRange ENDP
   iterator_start Iterator <>          ; Starting iterator
   iterator_end Iterator <>            ; Ending iterator
   iter_functions Iterator_Functions <> ; Iterator functions
+  target DD 9
 
 .CODE
 
@@ -362,8 +364,13 @@ Main PROC
   PUSH EAX
   LEA EAX, iterator_start
   PUSH EAX
-  CALL MergeSort
+  CALL SelectionSort
   POPAD
+
+  LEA EAX, myArr
+  MOV iterator_start.pointer, EAX 
+  MOV iterator_start.value_type, TYPE myArr
+  MOV iterator_start.function_pointers, OFFSET iter_functions
 
   CALL Crlf
 
