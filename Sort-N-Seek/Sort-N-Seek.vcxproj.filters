@@ -23,5 +23,32 @@
     <None Include="src\BubbleSort.inc">
       <Filter>Header Files</Filter>
     </None>
+    <None Include="src\SelectionSort.inc">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="src\CombSort.inc">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="src\MergeSort.inc">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="src\QuickSort.inc">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="src\ITERATOR.inc">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="src\HeapSort.inc">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="src\InsertionSort.inc">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="src\ShellSort.inc">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="src\BinarySearch.inc">
+      <Filter>Header Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
