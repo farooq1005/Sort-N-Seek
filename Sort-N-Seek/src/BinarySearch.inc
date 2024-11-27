@@ -10,15 +10,15 @@
 ; 
 ; Local Variables:
 ; [EBP - 4]: n = distance 
-; [EBP - 16]: Mid Iterator
+; [EBP - 16]: Mid iterator 
 ; [EBP - 20]: Value Type (Size in Bytes)
 ; Onwards: 1 x Dereferenced Value 
 ;
-; Total size of Known Local Varibales: 16 bytes
+; Total size of Known Local Varibales: 20 bytes
 ; ------------------------------------------------------------------
 
 BinarySearch PROC
-	enter 16, 0
+	enter 20, 0
 
 	; save the value type
 	mov ecx, DWORD PTR [ebp + 8]
@@ -27,6 +27,7 @@ BinarySearch PROC
 
 	; allocate 1 x it.value_type bytes in stack
 	sub esp, ecx
+	PUSHAD
 
 	; store the function pointers object first hand 
 	mov ecx, DWORD PTR [ebp + 8]
@@ -70,7 +71,6 @@ BinarySearch PROC
 		PUSH esi ; esi = mid iterator pointer
 		mov ebx, (Iterator_Functions PTR [ecx])._dref
 		call ebx
-		mov eax, [edi]
 
 		PUSH DWORD PTR [ebp + 16] ; target value address
 		PUSH edi ; edi points to the location where the dereferenced value is saved
@@ -81,13 +81,11 @@ BinarySearch PROC
 		JNE _else
 
 		; first iterator
-		mov edi, DWORD PTR [ebp + 8] 
-
-		; mid iterator
-		mov esi, ebp
-		sub esi, 16
+		mov edi, [ebp + 8]
 
 		; moving the first iterator to mid + 1
+		mov esi, ebp
+		sub esi, 16
 		PUSH 1
 		PUSH esi
 		mov ebx, (Iterator_Functions PTR [ecx])._next
@@ -97,8 +95,7 @@ BinarySearch PROC
 		mov eax, DWORD PTR [ebp - 4]
 		shr eax, 1
 		add eax, 1
-		sub eax, DWORD PTR [ebp - 4]
-		mov DWORD PTR [ebp - 4], eax	; saving back in n
+		sub DWORD PTR [ebp - 4], eax ; saving back in n
 		JMP _next
 
 		_else:
@@ -112,22 +109,15 @@ BinarySearch PROC
 			JMP _while
 
 	_endwhile:
-	
-	_testing:
-		mov edi, ebp
-		sub edi, 20
-		sub edi, DWORD PTR [ebp - 20]
-		mov esi, DWORD PTR [ebp + 8]
-		PUSH esi
-		mov ebx, (Iterator_Functions PTR [ecx])._dref
-		call ebx
 
-		mov eax, [edi]
-		call crlf
-		call writedec
-		call crlf
+	POPAD
 
-	mov edi, DWORD PTR [ebp + 8]
+	mov ecx, DWORD PTR [ebp + 8]
+	mov ecx, (Iterator PTR [ecx]).function_pointers
+
+	push DWORD PTR [ebp + 8]
+	mov ebx, (Iterator_Functions PTR [ecx])._copy
+	call ebx
 
 	leave
 	ret 16

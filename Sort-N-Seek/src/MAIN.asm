@@ -294,7 +294,7 @@ MAIN_PRINT_LOOP:
   PUSH DWORD PTR [EBP+8]      ; Push first iterator
   CALL ESI                    ; Call _dref function
   MOV EAX, [EDI]              ; Load dereferenced value
-  CALL WriteDec               ; Print the value
+  CALL WriteInt               ; Print the value
   CALL Crlf                   ; Print a newline
 
   ; Move to the next iterator
@@ -311,15 +311,22 @@ END_MAIN_PRINT_LOOP:
 PrintRange ENDP
 
 .DATA
-  myArr DD 3, 2, 5, 6, 1, 7, 8, 9, 0, 4  ; Array to iterate
+  myArr SDWORD -3, 2, -5, 6, 1, 7, 8, 9, 0, 4  ; Array to iterate
   iterator_start Iterator <>          ; Starting iterator
   iterator_end Iterator <>            ; Ending iterator
   iter_functions Iterator_Functions <> ; Iterator functions
-  target DD 9
+  
+  target DD -3
+
+  str1 DB "The array is: ", 10, 13, 0
+  str2 DB "The sorted array is: ", 10, 13, 0
+  str3 DB "The target is: ", 0
+  str4 DB "The target is found at index: ", 0
 
 .CODE
 
 Main PROC
+  ; Set up the starting iterator
   LEA EAX, myArr
   MOV iterator_start.pointer, EAX 
   MOV iterator_start.value_type, TYPE myArr
@@ -342,9 +349,8 @@ Main PROC
   MOV iter_functions._dref, OFFSET Dereference
   MOV iter_functions._asig, OFFSET Assign
 
-  MOV EBX, OFFSET Next
-  MOV EBX, OFFSET Compare
-  MOV EBX, OFFSET Dereference
+  MOV EDX, OFFSET str1
+  CALL WriteString
 
   ; Call PrintRange
   LEA EAX, iterator_start          ; Load address of starting iterator
@@ -355,7 +361,7 @@ Main PROC
 
   ; since we arent making copies of iterator for functions, we would need to reassign the address
   LEA EAX, myArr
-  MOV iterator_start.pointer, EAX 
+  MOV iterator_start.pointer, EAX
 
   PUSHAD
   MOV EAX, OFFSET Predicate
@@ -369,10 +375,10 @@ Main PROC
 
   LEA EAX, myArr
   MOV iterator_start.pointer, EAX 
-  MOV iterator_start.value_type, TYPE myArr
-  MOV iterator_start.function_pointers, OFFSET iter_functions
 
   CALL Crlf
+  MOV EDX, OFFSET str2
+  CALL WriteString
 
   ; Call PrintRange
   LEA EAX, iterator_start          ; Load address of starting iterator
@@ -380,6 +386,45 @@ Main PROC
   PUSH EBX                         ; Push ending iterator
   PUSH EAX                         ; Push starting iterator
   CALL PrintRange                  ; Call the PrintRange procedure
+
+  LEA EAX, myArr
+  MOV iterator_start.pointer, EAX 
+
+  SUB ESP, 12
+  MOV EDI, ESP
+
+  PUSHAD
+  MOV EAX, OFFSET Predicate
+  PUSH EAX
+  MOV EAX, OFFSET target
+  PUSH EAX
+  LEA EAX, iterator_end
+  PUSH EAX
+  LEA EAX, iterator_start
+  PUSH EAX
+  CALL BinarySearch
+
+  CALL Crlf
+
+  MOV EDX, OFFSET str3
+  CALL WriteString
+  MOV EAX, target
+  CALL WriteInt
+
+  LEA EAX, myArr
+  MOV iterator_start.pointer, EAX 
+
+  CALL Crlf
+
+  PUSH EDI
+  PUSH OFFSET iterator_start
+  CALL Distance
+
+  MOV EDX, OFFSET str4
+  CALL WriteString
+  CALL WriteInt
+
+  ADD ESP, 12
 
   EXIT
 Main ENDP
